@@ -1,0 +1,25 @@
+---
+/** <CtaSection> — eyebrow, big H2, text, Button dark + PhoneButton. */
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import Button from '@/components/ui/Button.astro';
+import PhoneButton from '@/components/ui/PhoneButton.astro';
+import { site } from '@/data/site';
+---
+
+<section class="section bg-cream-100">
+  <div class="container-site flex flex-col items-center gap-8 text-center">
+    <div class="flex flex-col items-center gap-6">
+      <Eyebrow>Your next step</Eyebrow>
+      <h2 class="font-heading text-[36px] leading-[1.2] font-normal tracking-[-0.21px] text-ink-900 md:text-[44px] lg:text-[48px]">
+        Ready to start <br /><span class="font-medium text-gold-700">feeling better?</span>
+      </h2>
+      <p class="max-w-[365px] font-body text-base leading-[1.6] text-gray-800/80 md:text-lg md:leading-[1.4]">
+        Book your $59 New Patient Special today and take the first step toward a pain‑free life.
+      </p>
+    </div>
+    <div class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row">
+      <Button variant="dark" href={site.bookHref} class="px-8">Claim Your $59 Exam</Button>
+      <PhoneButton tone="dark" />
+    </div>
+  </div>
+</section>

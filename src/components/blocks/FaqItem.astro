@@ -1,0 +1,24 @@
+---
+/** <FaqItem> — native <details> accordion (no JS needed). */
+interface Props {
+  question: string;
+  answer: string;
+  defaultOpen?: boolean;
+  class?: string;
+}
+const { question, answer, defaultOpen = false, class: className } = Astro.props;
+---
+
+<details class:list={['faq group border-t border-black/16 py-6', className]} open={defaultOpen}>
+  <summary class="flex cursor-pointer list-none items-center gap-4 [&::-webkit-details-marker]:hidden">
+    <span class="flex-1 font-heading text-base leading-[1.4] font-medium text-ink-900 md:text-lg">{question}</span>
+    <img
+      src="/icons/faq-toggle.svg"
+      alt=""
+      width="28"
+      height="28"
+      class="size-7 shrink-0 rotate-45 transition-transform duration-200 group-open:rotate-0"
+    />
+  </summary>
+  <p class="pt-4 font-body text-[15px] leading-[1.7] text-gray-600 md:text-base">{answer}</p>
+</details>

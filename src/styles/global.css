@@ -1,0 +1,201 @@
+@import "tailwindcss";
+
+/* Self-hosted fonts (no Google Fonts request on Cloudflare) */
+@import "@fontsource/montserrat/300.css";
+@import "@fontsource/montserrat/400.css";
+@import "@fontsource/montserrat/500.css";
+@import "@fontsource/montserrat/500-italic.css";
+@import "@fontsource/montserrat/600.css";
+@import "@fontsource/montserrat/700.css";
+@import "@fontsource/lato/300.css";
+@import "@fontsource/lato/400.css";
+@import "@fontsource/lato/400-italic.css";
+@import "@fontsource/lato/700.css";
+
+/* ------------------------------------------------------------------
+   Design tokens — mirrors the Figma "Style Guide" page variables.
+   Every token becomes a Tailwind utility (bg-cream-100, text-gold-700…)
+   ------------------------------------------------------------------ */
+@theme {
+  /* Brand palette */
+  --color-gold-50: #fdf8ef;
+  --color-cream-50: #fffbf4;
+  --color-cream-100: #fbf2e4;
+  --color-gold-200: #f2d881;
+  --color-gold-300: #dec366;
+  --color-gold-400: #c8b17f;
+  --color-gold-500: #c5a447;
+  --color-gold-700: #8a6c0a;
+  --color-gold-800: #664e00;
+  --color-brown-900: #352a06;
+  --color-ink-900: #2b2b2d;
+  --color-gray-800: #333333;
+  --color-gray-600: #555555;
+  --color-gray-400: #999999;
+  --color-border: #e2ddd7;
+  --color-star: #ffa000;
+  --color-error: #d33f3f;
+
+  /* Semantic aliases */
+  --color-heading: var(--color-ink-900);
+  --color-body: var(--color-gray-600);
+  --color-muted: var(--color-gray-400);
+  --color-accent: var(--color-gold-700);
+  --color-accent-bright: var(--color-gold-300);
+  --color-surface-dark: var(--color-ink-900);
+
+  /* Fonts */
+  --font-heading: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Lato", ui-sans-serif, system-ui, sans-serif;
+
+  /* Radii */
+  --radius-card: 16px;
+  --radius-field: 8px;
+  --radius-pill: 40px;
+
+  /* Shadows */
+  --shadow-card: 0 10px 16px 0 rgb(0 0 0 / 0.06);
+  --shadow-btn: 0 10px 8px rgb(0 0 0 / 0.06);
+
+  /* Layout */
+  --container-site: 1120px;
+  --container-narrow: 794px;
+  --container-faq: 632px;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white font-body text-gray-800 antialiased;
+  }
+  ::selection {
+    background: var(--color-gold-200);
+    color: var(--color-ink-900);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Page container: 24px gutters on mobile, 40px tablet, 1120px max on desktop */
+  .container-site {
+    @apply mx-auto w-full max-w-[calc(var(--container-site)+48px)] px-6 md:max-w-[calc(var(--container-site)+80px)] md:px-10;
+  }
+
+  /* Section vertical rhythm: 64 mobile / 80 tablet / 100 desktop */
+  .section {
+    @apply py-16 md:py-20 lg:py-[100px];
+  }
+
+  /* ---------- Typography (Style Guide text styles) ---------- */
+  .type-h1 {
+    @apply font-heading text-[32px] leading-[1.1] font-semibold tracking-[-1px] md:text-[44px] lg:text-[48px];
+  }
+  .type-h2 {
+    @apply font-heading text-[28px] leading-[1.2] font-normal tracking-[-0.21px] md:text-[34px] lg:text-[40px];
+  }
+  .type-h2 em {
+    @apply font-medium text-accent not-italic;
+  }
+  .type-h3 {
+    @apply font-heading text-2xl leading-[1.2] font-medium;
+  }
+  .type-h4 {
+    @apply font-heading text-xl leading-[1.2] font-medium;
+  }
+  .type-body-lg {
+    @apply font-body text-base leading-[1.6] font-light md:text-lg md:leading-[1.4];
+  }
+  .type-eyebrow {
+    @apply font-heading text-xs leading-none font-medium tracking-[0.24px] uppercase italic;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    @apply relative inline-flex h-[46px] cursor-pointer items-center justify-center rounded-[40px] px-10 font-heading text-sm leading-none font-medium whitespace-nowrap uppercase transition duration-200 ease-out select-none;
+  }
+  .btn-sm {
+    @apply h-[38px] px-6 text-xs tracking-[0.48px];
+  }
+  .btn-primary {
+    @apply tracking-[0.56px] text-black;
+    background-image: linear-gradient(90deg, #fbf687 0%, #c5a447 100%);
+    box-shadow: inset 0 4px 8px 0 rgb(255 255 255 / 0.4);
+  }
+  .btn-primary:hover {
+    filter: brightness(1.05) saturate(1.05);
+    transform: translateY(-1px);
+  }
+  .btn-dark {
+    @apply px-14 text-white;
+    background-image: linear-gradient(90deg, #785b17 0%, #352a06 100%);
+    box-shadow:
+      inset 0 2px 8px 0 rgb(255 255 255 / 0.4),
+      0 10px 8px rgb(0 0 0 / 0.06);
+  }
+  .btn-dark:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+  }
+  .btn-outline {
+    @apply border border-gold-400 bg-transparent text-ink-900;
+  }
+  .btn-outline:hover {
+    @apply border-gold-700 bg-gold-50;
+  }
+  .btn-outline-light {
+    @apply border border-gold-700 bg-transparent tracking-[0.56px] text-white;
+  }
+  .btn-outline-light:hover {
+    @apply bg-white/10;
+  }
+  .btn-outline-dark {
+    @apply border border-gold-700 bg-transparent tracking-[0.56px] text-black;
+  }
+  .btn-outline-dark:hover {
+    @apply bg-white/60;
+  }
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  /* Small gold "pill" badge (Limited spots / 16 years of experience) */
+  .badge-gold {
+    @apply inline-flex items-center justify-center rounded-lg border border-black/8 bg-gold-300 px-4 py-2 font-heading text-xs leading-none font-semibold tracking-[0.48px] whitespace-nowrap text-black uppercase;
+  }
+
+  /* Dotted gold divider used in the lead form and review cards */
+  .divider-dotted {
+    @apply h-0.5 w-full;
+    background-image: radial-gradient(circle, var(--color-gold-400) 1px, transparent 1.2px);
+    background-size: 8px 2px;
+    background-repeat: repeat-x;
+  }
+
+  /* Form fields */
+  .field-label {
+    @apply font-heading text-[10px] leading-none font-medium tracking-[-0.2px] text-gray-800 uppercase;
+  }
+  .field-input {
+    @apply w-full rounded-lg border border-black/12 bg-white px-4 py-3 font-heading text-sm leading-none font-medium tracking-[-0.28px] text-ink-900 transition outline-none placeholder:text-black/20;
+  }
+  .field-input:focus {
+    @apply border-gold-500 ring-2 ring-gold-300/40;
+  }
+  .field-input[aria-invalid="true"] {
+    @apply border-error ring-2 ring-error/15;
+  }
+}
+
+/* Hide scrollbar on horizontal photo strips (mobile) */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

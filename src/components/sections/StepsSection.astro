@@ -1,0 +1,82 @@
+---
+/**
+ * <StepsSection> — dark surface, 3 × StepItem.
+ * md+: 3 columns with a connector line from the centre of circle 1 to circle 3.
+ * base: vertical timeline.
+ */
+import SectionHeading from '@/components/blocks/SectionHeading.astro';
+import StepItem from '@/components/blocks/StepItem.astro';
+import Button from '@/components/ui/Button.astro';
+import { site, steps } from '@/data/site';
+---
+
+<section class="section bg-ink-900">
+  <div class="container-site flex flex-col items-center gap-12 md:gap-20">
+    <SectionHeading eyebrow="How It Works" tone="dark" subtitle="No surprises, no rushing, no high‑pressure sales.">
+      From form to first visit in <em>simple 3-steps.</em>
+    </SectionHeading>
+
+    <ol class="steps relative grid w-full grid-cols-1 gap-12 md:grid-cols-3">
+      <!-- connector: horizontal on md+, vertical on mobile -->
+      <span class="steps-line" aria-hidden="true"></span>
+      {steps.map((s, i) => <StepItem number={i + 1} {...s} />)}
+    </ol>
+
+    <Button href={site.bookHref} class="w-full md:w-fit">Claim Your $59 Exam</Button>
+  </div>
+</section>
+
+<style>
+  .steps {
+    --gap: 3rem;
+  }
+  /* Mobile: vertical timeline — a segment from each circle centre to the next one */
+  .steps-line {
+    display: none;
+  }
+  .steps > :global(li:not(:last-child))::after {
+    content: '';
+    position: absolute;
+    left: 36px;
+    top: 50%;
+    width: 1px;
+    height: calc(100% + var(--gap));
+    background: rgb(200 177 127 / 0.4);
+  }
+  @media (min-width: 768px) {
+    .steps {
+      --gap: 24px;
+      column-gap: var(--gap);
+    }
+    .steps > :global(li:not(:last-child))::after {
+      content: none;
+    }
+    /* Tablet: line from the centre of circle 1 to the centre of circle 3 */
+    .steps-line {
+      display: block;
+      position: absolute;
+      top: 36px;
+      height: 1px;
+      left: calc((100% - 2 * var(--gap)) / 6);
+      right: calc((100% - 2 * var(--gap)) / 6);
+      background: rgb(200 177 127 / 0.4);
+    }
+  }
+  @media (min-width: 1024px) {
+    .steps {
+      --gap: 80px;
+    }
+    /* Desktop: line runs past the outer circles and fades out (Figma 1440) */
+    .steps-line {
+      left: 0;
+      right: 0;
+      background: linear-gradient(
+        90deg,
+        rgb(200 177 127 / 0) 0%,
+        rgb(200 177 127 / 0.4) 10%,
+        rgb(200 177 127 / 0.4) 90%,
+        rgb(200 177 127 / 0) 100%
+      );
+    }
+  }
+</style>

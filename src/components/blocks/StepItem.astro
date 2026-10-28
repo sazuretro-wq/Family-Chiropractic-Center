@@ -1,0 +1,32 @@
+---
+/**
+ * <StepItem> — numbered gold ring + title + description, on dark surface.
+ * base: horizontal (ring left, text right) for the vertical timeline
+ * md+:  stacked + centered. Titles are locked to 2 lines (min-h 52px) on
+ *       tablet so the three descriptions line up (Figma tablet fix).
+ */
+interface Props {
+  number: number | string;
+  title: string;
+  description: string;
+  class?: string;
+}
+const { number, title, description, class: className } = Astro.props;
+---
+
+<li class:list={['relative flex items-center gap-5 md:flex-col md:items-center md:gap-10', className]}>
+  <span
+    class="relative z-10 flex size-[72px] shrink-0 items-center justify-center rounded-full border border-gold-400 bg-ink-900 font-heading text-[28px] leading-none text-gold-300"
+  >
+    {number}
+    <span class="absolute -inset-2 rounded-full border border-gold-400/20" aria-hidden="true"></span>
+  </span>
+  <div class="flex flex-col gap-2 md:gap-[15px] md:text-center">
+    <h3
+      class="font-heading text-base leading-[1.3] font-medium text-white md:min-h-[52px] md:text-xl md:leading-[26px] lg:min-h-0 lg:text-[22px] lg:leading-[1.2]"
+    >
+      {title}
+    </h3>
+    <p class="font-body text-[15px] leading-[1.5] font-light text-white/70">{description}</p>
+  </div>
+</li>

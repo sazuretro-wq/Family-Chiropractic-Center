@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SiteHeader from '@/components/layout/SiteHeader.astro';
+import SiteFooter from '@/components/layout/SiteFooter.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import Button from '@/components/ui/Button.astro';
+---
+
+<BaseLayout title="Page not found | Family Chiropractic Center" noindex>
+  <SiteHeader />
+  <main class="flex min-h-[70vh] items-center bg-ink-900 pt-40 pb-24">
+    <div class="container-site flex flex-col items-center gap-6 text-center">
+      <Eyebrow tone="dark">404</Eyebrow>
+      <h1 class="type-h1 text-white">This page <span class="text-gold-300">doesn't exist.</span></h1>
+      <Button href="/">Back to Home</Button>
+    </div>
+  </main>
+  <SiteFooter />
+</BaseLayout>

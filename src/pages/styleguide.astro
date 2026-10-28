@@ -1,0 +1,123 @@
+---
+/**
+ * /styleguide — living style guide + component library (mirrors the Figma
+ * "Style Guide" and "Components" pages). Not linked from the site; noindex.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import PhoneButton from '@/components/ui/PhoneButton.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import AwardBadge from '@/components/ui/AwardBadge.astro';
+import TrustBadge from '@/components/ui/TrustBadge.astro';
+import GoogleRatingBadge from '@/components/ui/GoogleRatingBadge.astro';
+import SectionHeading from '@/components/blocks/SectionHeading.astro';
+import IncludedCard from '@/components/blocks/IncludedCard.astro';
+import DoctorCard from '@/components/blocks/DoctorCard.astro';
+import ReviewCard from '@/components/blocks/ReviewCard.astro';
+import StepItem from '@/components/blocks/StepItem.astro';
+import ServiceCard from '@/components/blocks/ServiceCard.astro';
+import FaqItem from '@/components/blocks/FaqItem.astro';
+import HeroHighlights from '@/components/blocks/HeroHighlights.astro';
+import LeadForm from '@/components/blocks/LeadForm.astro';
+import { doctors, faqs, heroHighlights, included, reviews, services, steps, trustBadges } from '@/data/site';
+
+const colors = [
+  ['gold-50', '#fdf8ef'], ['cream-50', '#fffbf4'], ['cream-100', '#fbf2e4'], ['gold-200', '#f2d881'],
+  ['gold-300', '#dec366'], ['gold-400', '#c8b17f'], ['gold-500', '#c5a447'], ['gold-700', '#8a6c0a'],
+  ['gold-800', '#664e00'], ['brown-900', '#352a06'], ['ink-900', '#2b2b2d'], ['gray-800', '#333333'],
+  ['gray-600', '#555555'], ['gray-400', '#999999'], ['border', '#e2ddd7'], ['star', '#ffa000'], ['error', '#d33f3f'],
+];
+const type = [
+  ['Display / H1', 'type-h1', 'Montserrat SemiBold 48 / 1.1 / -1 (mobile 32)'],
+  ['Heading / H2', 'type-h2', 'Montserrat Regular 40 / 1.2 (tablet 34, mobile 28)'],
+  ['Heading / H3', 'type-h3', 'Montserrat Medium 24 / 1.2'],
+  ['Heading / H4', 'type-h4', 'Montserrat Medium 20 / 1.2'],
+  ['Body / Large', 'type-body-lg', 'Lato Light 18 / 1.4 (mobile 16 / 1.6)'],
+  ['Body / Default', 'font-body text-base leading-[1.4]', 'Lato Regular 16 / 1.4'],
+  ['Body / Small', 'font-body text-sm leading-[1.5]', 'Lato Regular 14 / 1.5'],
+  ['Body / Caption', 'font-body text-xs leading-[1.6]', 'Lato Regular 12 / 1.6'],
+  ['Label / Eyebrow', 'type-eyebrow text-gold-700', 'Montserrat Medium Italic 12, uppercase'],
+];
+---
+
+<BaseLayout title="Style Guide | Family Chiropractic Center" noindex>
+  <main class="bg-white pb-24">
+    <header class="bg-ink-900 py-16">
+      <div class="container-site flex flex-col gap-4">
+        <Eyebrow tone="dark">Family Chiropractic Center · Astro components</Eyebrow>
+        <h1 class="type-h1 text-white">Style Guide &amp; Components</h1>
+        <p class="type-body-lg text-white/70">Tokens live in <code>src/styles/global.css</code>. Components in <code>src/components/(ui|blocks|layout|sections)</code>.</p>
+      </div>
+    </header>
+
+    <div class="container-site flex flex-col gap-20 pt-16">
+      <section class="flex flex-col gap-6">
+        <h2 class="type-h3">Colors</h2>
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+          {colors.map(([name, hex]) => (
+            <div class="overflow-hidden rounded-2xl border border-border">
+              <div class="h-20" style={{ background: hex }} />
+              <div class="p-3 font-body text-sm"><b class="font-heading">{name}</b><br /><span class="text-gray-600">{hex}</span></div>
+            </div>
+          ))}
+        </div>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="flex h-20 items-end rounded-2xl p-3 font-heading text-sm" style="background-image:linear-gradient(90deg,#fbf687,#c5a447)">Gradient / Gold Button</div>
+          <div class="flex h-20 items-end rounded-2xl p-3 font-heading text-sm text-white" style="background-image:linear-gradient(90deg,#785b17,#352a06)">Gradient / Dark Gold Button</div>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-6">
+        <h2 class="type-h3">Typography</h2>
+        {type.map(([name, cls, spec]) => (
+          <div class="grid gap-2 border-t border-border pt-4 md:grid-cols-[220px_1fr]">
+            <div class="font-body text-sm text-gray-600"><b class="font-heading text-ink-900">{name}</b><br />{spec}</div>
+            <p class={`${cls} text-ink-900`}>Farmington's most trusted chiropractors</p>
+          </div>
+        ))}
+      </section>
+
+      <section class="flex flex-col gap-6">
+        <h2 class="type-h3">UI · atoms</h2>
+        <div class="flex flex-wrap items-center gap-4">
+          <Button>Claim Your $59 Exam</Button>
+          <Button variant="dark">Book My Appointment</Button>
+          <Button variant="outline">See More</Button>
+          <PhoneButton tone="dark" />
+        </div>
+        <div class="flex flex-wrap items-center gap-6 rounded-2xl bg-ink-900 p-6">
+          <PhoneButton />
+          <PhoneButton compact />
+          <AwardBadge label="Minnesota Monthly Best Chiropractor" />
+          <HeroHighlights items={heroHighlights} />
+        </div>
+        <div class="flex flex-wrap items-center gap-6">
+          <Eyebrow>What's Included</Eyebrow>
+          <span class="badge-gold">Limited spots this month</span>
+          <GoogleRatingBadge />
+        </div>
+        <div class="grid grid-cols-2 gap-6 lg:grid-cols-4">{trustBadges.map((b) => <TrustBadge {...b} />)}</div>
+      </section>
+
+      <section class="flex flex-col gap-10">
+        <h2 class="type-h3">Blocks · molecules</h2>
+        <SectionHeading eyebrow="A Different Approach" subtitle="Optional subtitle text.">Living with pain shouldn't be <em>your normal.</em></SectionHeading>
+        <div class="grid gap-6 md:grid-cols-3">
+          <IncludedCard {...included[0]} index="01" />
+          <ServiceCard {...services[0]} />
+          <ReviewCard {...reviews[0]} />
+        </div>
+        <div class="grid gap-10 md:grid-cols-[1fr_1fr_343px] md:gap-6">
+          <DoctorCard {...doctors[0]} />
+          <div class="flex flex-col gap-6">
+            {faqs.slice(0, 2).map((f, i) => <FaqItem {...f} defaultOpen={i === 0} />)}
+          </div>
+          <LeadForm id="styleguide-form" />
+        </div>
+        <ol class="grid gap-12 rounded-2xl bg-ink-900 p-10 md:grid-cols-3 md:gap-6">
+          {steps.map((s, i) => <StepItem number={i + 1} {...s} />)}
+        </ol>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

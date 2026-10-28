@@ -1,0 +1,19 @@
+---
+/** <HeroHighlights> — icon + label bullets in the hero. */
+interface Props {
+  items: { icon: string; label: string }[];
+  class?: string;
+}
+const { items, class: className } = Astro.props;
+---
+
+<ul class:list={['flex flex-col gap-2', className]}>
+  {
+    items.map((item) => (
+      <li class="flex items-center gap-2.5">
+        <img src={item.icon} alt="" width="24" height="24" class="size-6 shrink-0" />
+        <span class="font-heading text-sm leading-none font-semibold tracking-[0.28px] text-white lg:font-bold">{item.label}</span>
+      </li>
+    ))
+  }
+</ul>

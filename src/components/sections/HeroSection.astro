@@ -1,0 +1,38 @@
+---
+/** <HeroSection> — award badge, H1, highlights, CTA + LeadForm over a dark photo. */
+import AwardBadge from '@/components/ui/AwardBadge.astro';
+import Button from '@/components/ui/Button.astro';
+import HeroHighlights from '@/components/blocks/HeroHighlights.astro';
+import LeadForm from '@/components/blocks/LeadForm.astro';
+import { heroHighlights, site } from '@/data/site';
+---
+
+<section class="relative isolate overflow-hidden bg-[#363332]">
+  <div aria-hidden="true" class="absolute inset-0 -z-10">
+    <img src="/images/hero-bg.png" alt="" fetchpriority="high" class="size-full object-cover" />
+    <div class="absolute inset-0 bg-ink-900/93"></div>
+  </div>
+
+  <div
+    class="container-site flex flex-col gap-16 pt-[182px] pb-16 md:gap-14 md:pt-[148px] md:pb-[72px] lg:min-h-[800px] lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:pt-36 lg:pb-14"
+  >
+    <div class="flex w-full flex-col gap-8 lg:max-w-[579px] lg:gap-6">
+      <div class="flex flex-col gap-6 lg:gap-8">
+        <AwardBadge label="Minnesota Monthly Best Chiropractor" />
+        <div class="flex flex-col gap-4">
+          <h1 class="type-h1 text-white">
+            Farmington's Most Trusted Chiropractors for <span class="text-gold-300">Over 60 Years</span>
+          </h1>
+          <p class="font-body text-[15px] leading-[1.5] text-white/80 md:text-lg">
+            Get to the root cause of your pain with a comprehensive exam, consultation, and advanced INSiGHT
+            Neurological Scan. all for just $59.
+          </p>
+        </div>
+      </div>
+      <HeroHighlights items={heroHighlights} />
+      <Button href={site.bookHref} class="w-full md:w-fit">Claim Your $59 Exam</Button>
+    </div>
+
+    <LeadForm class="lg:w-[343px] lg:shrink-0" />
+  </div>
+</section>

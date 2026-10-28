@@ -1,0 +1,8 @@
+# Cloudflare Pages config (used by `npm run cf:dev` and `npm run deploy`)
+name = "family-chiropractic-center"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-10-01"
+
+# Optional: forward leads to a webhook (Zapier / Make / CRM).
+# Set it as a secret in the Pages dashboard instead of committing it:
+#   wrangler pages secret put LEAD_WEBHOOK_URL

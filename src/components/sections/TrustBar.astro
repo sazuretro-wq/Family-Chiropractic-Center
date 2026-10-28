@@ -1,0 +1,11 @@
+---
+/** <TrustBar> — 4 × TrustBadge · 4 cols (lg) / 2×2 (md, base). */
+import TrustBadge from '@/components/ui/TrustBadge.astro';
+import { trustBadges } from '@/data/site';
+---
+
+<section class="border-b border-[rgb(34_36_38/0.15)] bg-cream-50 py-6 md:py-8" aria-label="Awards and credentials">
+  <div class="container-site grid grid-cols-2 gap-x-4 gap-y-6 md:gap-x-6 lg:grid-cols-4 lg:gap-4">
+    {trustBadges.map((b) => <TrustBadge {...b} />)}
+  </div>
+</section>

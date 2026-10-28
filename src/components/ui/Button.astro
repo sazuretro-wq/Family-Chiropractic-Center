@@ -1,0 +1,42 @@
+---
+/**
+ * <Button> — Figma: Button / Primary | Dark | Outline
+ * variant: primary (gold gradient) | dark (dark gold gradient) | outline | outline-light | outline-dark
+ * Renders <a> when href is set, otherwise <button>.
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'primary' | 'dark' | 'outline' | 'outline-light' | 'outline-dark';
+interface Props extends Omit<HTMLAttributes<'button'>, 'type'> {
+  variant?: Variant;
+  size?: 'md' | 'sm';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  fullWidth?: boolean;
+  class?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  fullWidth = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const classes = ['btn', `btn-${variant}`, size === 'sm' && 'btn-sm', fullWidth && 'w-full', className];
+---
+
+{
+  href ? (
+    <a href={href} class:list={classes} {...(rest as HTMLAttributes<'a'>)}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class:list={classes} {...rest}>
+      <slot />
+    </button>
+  )
+}

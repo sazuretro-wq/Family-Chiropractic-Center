@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Background+Border">
+<rect width="28" height="28" rx="14" fill="#C8B17F"/>
+<rect x="0.5" y="0.5" width="27" height="27" rx="13.5" stroke="#222426" stroke-opacity="0.15"/>
+<path id="+" d="M17.6288 11.743L15.0323 14.3395L17.7688 17.076L16.846 17.9988L14.1095 15.2623L11.5258 17.8461L10.6666 16.9869L13.2504 14.4032L10.533 11.6858L11.4558 10.763L14.1732 13.4804L16.7697 10.8839L17.6288 11.743Z" fill="#2B2B2D"/>
+</g>
+</svg>

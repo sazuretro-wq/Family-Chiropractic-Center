@@ -1,0 +1,34 @@
+---
+/**
+ * <GoogleRatingBadge> — Google logo, rating + stars, review count.
+ * Pill on tablet/desktop; stacked card on mobile (matches the 390 frame).
+ */
+interface Props {
+  rating?: number;
+  count?: string;
+  class?: string;
+}
+const { rating = 4.9, count = '200+', class: className } = Astro.props;
+---
+
+<div
+  class:list={[
+    'flex w-full max-w-[342px] flex-col gap-3 rounded-2xl bg-cream-100 p-4 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:gap-2 sm:rounded-full sm:py-2 sm:pr-4 sm:pl-2',
+    className,
+  ]}
+>
+  <div class="flex items-center gap-2">
+    <img src="/icons/google.svg" alt="" width="24" height="24" class="size-6" />
+    <p class="font-heading text-base leading-[1.2] font-bold tracking-[-0.32px] whitespace-nowrap text-black">Google Reviews</p>
+  </div>
+  <span class="divider-dotted sm:hidden" aria-hidden="true"></span>
+  <div class="flex items-center gap-2">
+    <img src="/images/dot.svg" alt="" width="4" height="4" class="hidden size-1 sm:block" />
+    <div class="flex items-center gap-1">
+      <p class="font-body text-sm leading-none font-bold tracking-[0.28px] text-[rgb(2_4_8/0.8)]">{rating}</p>
+      <img src="/images/rating-stars.svg" alt={`${rating} out of 5 stars`} width="84" height="15" class="h-[14.82px] w-[84px]" />
+    </div>
+    <img src="/images/dot.svg" alt="" width="4" height="4" class="size-1" />
+    <p class="font-heading text-xs leading-none font-medium whitespace-nowrap text-black/50">Based on {count} reviews</p>
+  </div>
+</div>

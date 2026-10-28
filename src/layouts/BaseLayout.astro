@@ -1,0 +1,56 @@
+---
+import '@/styles/global.css';
+import { site } from '@/data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+const {
+  title = `${site.name} | Farmington's Trusted Chiropractors`,
+  description = "Farmington's most trusted chiropractors for over 60 years. Get a comprehensive exam, consultation and INSiGHT Neurological Scan for just $59.",
+  noindex = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
+const localBusiness = {
+  '@context': 'https://schema.org',
+  '@type': 'Chiropractor',
+  name: site.name,
+  telephone: '+1-651-463-2225',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '530 Walnut Street',
+    addressLocality: 'Farmington',
+    addressRegion: 'MN',
+    postalCode: '55024',
+    addressCountry: 'US',
+  },
+  url: Astro.site?.toString(),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#2b2b2d" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/images/hero-bg.png', Astro.site)} />
+    <link rel="preload" as="image" href="/images/hero-bg.png" />
+    <script type="application/ld+json" set:html={JSON.stringify(localBusiness)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

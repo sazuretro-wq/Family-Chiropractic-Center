@@ -1,0 +1,27 @@
+---
+/** <IncludedSection> — SectionHeading + 3 × IncludedCard · 3 cols (lg) / 1 col (md, base) + Button. */
+import SectionHeading from '@/components/blocks/SectionHeading.astro';
+import IncludedCard from '@/components/blocks/IncludedCard.astro';
+import Button from '@/components/ui/Button.astro';
+import { included, site } from '@/data/site';
+---
+
+<section class="section bg-white">
+  <div class="container-site flex flex-col items-center gap-10 md:gap-14">
+    <SectionHeading
+      eyebrow="What's Included"
+      subtitle="Three things, one visit, $59. No upsells, no pressure — just answers and a plan."
+    >
+      Everything you need to <br class="hidden sm:block" />understand <em>what's really going on.</em>
+    </SectionHeading>
+
+    <div class="grid w-full grid-cols-1 gap-6 lg:grid-cols-3">
+      {included.map((item, i) => <IncludedCard {...item} index={String(i + 1).padStart(2, '0')} />)}
+    </div>
+
+    <div class="flex w-full flex-col items-center gap-4">
+      <Button href={site.bookHref} class="w-full sm:w-fit">Claim Your $59 Exam</Button>
+      <p class="font-body text-base leading-[1.2] tracking-[1px] text-gray-600 italic">Limited new‑patient spots each week*</p>
+    </div>
+  </div>
+</section>

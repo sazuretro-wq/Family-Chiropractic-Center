@@ -1,0 +1,23 @@
+---
+/** <DoctorsSection> — SectionHeading + 2 × DoctorCard · 2 cols (md+) / 1 col (base). */
+import SectionHeading from '@/components/blocks/SectionHeading.astro';
+import DoctorCard from '@/components/blocks/DoctorCard.astro';
+import { doctors } from '@/data/site';
+---
+
+<section class="section bg-gold-50">
+  <div class="container-site">
+    <div class="mx-auto flex max-w-[794px] flex-col gap-14">
+      <SectionHeading
+        eyebrow="Meet Your Doctors"
+        subtitleClass="md:max-w-[480px]"
+        subtitle="A husband‑and‑wife team alongside specialists who treat patients like family because that's how it started."
+      >
+        Real people who care <br class="hidden sm:block" />about <em>real outcomes.</em>
+      </SectionHeading>
+      <div class="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-6">
+        {doctors.map((d) => <DoctorCard {...d} />)}
+      </div>
+    </div>
+  </div>
+</section>

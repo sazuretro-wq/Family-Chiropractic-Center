@@ -1,0 +1,12 @@
+---
+/** <Eyebrow> — Montserrat Medium Italic 12, uppercase, gold-700 (gold-300 on dark). */
+interface Props {
+  tone?: 'light' | 'dark';
+  class?: string;
+}
+const { tone = 'light', class: className } = Astro.props;
+---
+
+<p class:list={['type-eyebrow', tone === 'dark' ? 'text-gold-300' : 'text-gold-700', className]}>
+  <slot />
+</p>

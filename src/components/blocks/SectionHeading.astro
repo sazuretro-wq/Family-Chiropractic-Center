@@ -1,0 +1,27 @@
+---
+/**
+ * <SectionHeading> — eyebrow + H2 (+ optional subtitle).
+ * Put the gold accent part of the title in <em>…</em> inside the slot.
+ */
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+
+interface Props {
+  eyebrow: string;
+  subtitle?: string;
+  tone?: 'light' | 'dark';
+  align?: 'center' | 'left';
+  as?: 'h1' | 'h2';
+  subtitleClass?: string;
+  class?: string;
+}
+const { eyebrow, subtitle, tone = 'light', align = 'center', as: Tag = 'h2', subtitleClass, class: className } = Astro.props;
+const dark = tone === 'dark';
+---
+
+<header class:list={['flex flex-col gap-6', align === 'center' ? 'items-center text-center' : 'items-start text-left', className]}>
+  <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
+  <Tag class:list={['type-h2 text-balance', dark ? 'text-white [&_em]:text-gold-300' : 'text-ink-900']}>
+    <slot />
+  </Tag>
+  {subtitle && <p class:list={['type-body-lg max-w-[794px] text-balance', subtitleClass, dark ? 'text-[#ccc]' : 'text-gray-800']}>{subtitle}</p>}
+</header>

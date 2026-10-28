@@ -1,0 +1,13 @@
+---
+/** <AwardBadge> — laurel "6X" badge + label (hero). */
+interface Props {
+  label: string;
+  class?: string;
+}
+const { label, class: className } = Astro.props;
+---
+
+<div class:list={['flex items-center gap-2.5', className]}>
+  <img src="/images/award-laurel.svg" alt="6× award" width="32" height="24" class="h-[23.78px] w-[31.63px] shrink-0" />
+  <p class="font-heading text-xs leading-none font-medium tracking-[0.24px] text-white uppercase italic">{label}</p>
+</div>

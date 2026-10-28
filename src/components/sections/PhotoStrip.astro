@@ -1,0 +1,36 @@
+---
+/**
+ * <PhotoStrip> — edge-to-edge photo row. Horizontal scroll on mobile.
+ * variant="staff": 6 equal tiles (212px tall) · variant="team": 7 tiles w/ design widths (253px tall)
+ */
+import { staffPhotos, teamPhotos } from '@/data/site';
+
+interface Props {
+  variant?: 'staff' | 'team';
+}
+const { variant = 'staff' } = Astro.props;
+const photos = variant === 'staff' ? staffPhotos.map((p) => ({ ...p, width: 1 })) : teamPhotos;
+const total = photos.reduce((sum, p) => sum + p.width, 0);
+---
+
+<section
+  class:list={[
+    'no-scrollbar flex snap-x snap-mandatory gap-0.5 overflow-x-auto bg-white',
+    variant === 'staff' ? 'h-[104px] md:h-[140px] lg:h-[212px]' : 'h-[110px] md:h-[253px]',
+  ]}
+  aria-label={variant === 'staff' ? 'Our team' : 'Life at Family Chiropractic Center'}
+>
+  {
+    photos.map((p) => (
+      <div
+        class:list={[
+          'relative h-full shrink-0 snap-start md:shrink',
+          variant === 'staff' ? 'w-[104px] md:w-auto md:flex-1' : 'w-[var(--w-sm)] md:w-auto md:flex-[var(--grow)]',
+        ]}
+        style={{ '--grow': `${p.width} 1 0%`, '--w-sm': `${Math.round((p.width / total) * 1440 * 0.44)}px` }}
+      >
+        <img src={p.src} alt={p.alt} loading="lazy" decoding="async" class="size-full object-cover" />
+      </div>
+    ))
+  }
+</section>

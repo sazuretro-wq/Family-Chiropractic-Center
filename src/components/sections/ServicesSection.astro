@@ -1,0 +1,22 @@
+---
+/** <ServicesSection> — cream surface · 6 × ServiceCard grid 3 cols (lg) / 2 (md) / 1 (base) + Button dark. */
+import SectionHeading from '@/components/blocks/SectionHeading.astro';
+import ServiceCard from '@/components/blocks/ServiceCard.astro';
+import Button from '@/components/ui/Button.astro';
+import { services, site } from '@/data/site';
+---
+
+<section class="section bg-cream-100">
+  <div class="container-site flex flex-col items-center gap-10 md:gap-14">
+    <SectionHeading
+      eyebrow="Full Integrative Clinic"
+      subtitle="Six specialties under one roof, so your care plan can flex as your body and goals do."
+    >
+      More than chiropractic.
+    </SectionHeading>
+    <div class="grid w-full grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {services.map((s) => <ServiceCard {...s} />)}
+    </div>
+    <Button variant="dark" href={site.bookHref} class="w-full md:w-[295px]">Claim Your $59 Exam</Button>
+  </div>
+</section>

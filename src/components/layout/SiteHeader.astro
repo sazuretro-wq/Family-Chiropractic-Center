@@ -1,0 +1,15 @@
+---
+/** <SiteHeader> — logo + phone pill, transparent over the hero. */
+import PhoneButton from '@/components/ui/PhoneButton.astro';
+---
+
+<header class="absolute inset-x-0 top-0 z-20">
+  <div class="mx-auto flex w-full items-center justify-between px-6 pt-10 pb-6 md:pt-6 lg:max-w-[1440px]">
+    <a href="/" aria-label="Family Chiropractic Center — home" class="shrink-0">
+      <img src="/images/logo.svg" alt="Family Chiropractic Center" width="100" height="50" class="h-[45.83px] w-[92px] md:h-[49.82px] md:w-[100px]" />
+    </a>
+    <PhoneButton compact class="md:hidden" />
+    <PhoneButton class="hidden md:inline-flex" />
+  </div>
+  <div class="h-px bg-white/10 md:hidden" aria-hidden="true"></div>
+</header>

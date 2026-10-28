@@ -1,0 +1,45 @@
+---
+/** <ReviewCard> — avatar initial, name, location, Google mark, stars, title, body. */
+interface Props {
+  initial: string;
+  name: string;
+  location: string;
+  rating?: number;
+  title: string;
+  body: string;
+  avatarColor?: string;
+  class?: string;
+}
+const { initial, name, location, rating = 5, title, body, avatarColor = '#f9ff57', class: className } = Astro.props;
+
+// Dark avatar backgrounds get a light initial
+const hex = avatarColor.replace('#', '');
+const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
+const darkAvatar = (r * 299 + g * 587 + b * 114) / 1000 < 128;
+---
+
+<article class:list={['flex flex-col gap-6 rounded-2xl bg-cream-100 p-6', className]}>
+  <header class="flex items-center gap-6">
+    <div class="flex min-w-0 flex-1 items-center gap-3">
+      <span
+        class:list={[
+          'flex size-12 shrink-0 items-center justify-center rounded-full font-heading text-[28px] leading-none font-light tracking-[-0.56px]',
+          darkAvatar ? 'text-cream-100' : 'text-black',
+        ]}
+        style={{ backgroundColor: avatarColor }}
+        aria-hidden="true">{initial}</span
+      >
+      <div class="flex min-w-0 flex-col gap-1">
+        <p class="font-heading text-base leading-[1.2] font-bold tracking-[-0.16px] text-black">{name}</p>
+        <p class="font-heading text-sm leading-none text-black/50">{location}</p>
+      </div>
+    </div>
+    <img src="/icons/google.svg" alt="Google review" width="24" height="24" class="size-6 shrink-0" />
+  </header>
+  <span class="divider-dotted -mx-6 w-auto" aria-hidden="true"></span>
+  <div class="flex flex-col gap-2">
+    <img src="/images/review-stars.svg" alt={`${rating} out of 5 stars`} width="90" height="16" class="h-4 w-[89.88px]" />
+    <h3 class="font-heading text-base leading-[1.2] font-bold tracking-[-0.32px] text-black">{title}</h3>
+    <p class="font-body text-sm leading-[1.5] text-gray-600">{body}</p>
+  </div>
+</article>

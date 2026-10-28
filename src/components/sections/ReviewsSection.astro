@@ -1,0 +1,65 @@
+---
+/**
+ * <ReviewsSection> — SectionHeading, GoogleRatingBadge, ReviewCard masonry
+ * 3 cols (lg) / 2 (md) / 1 (base), bottom fade + "See more" to expand.
+ */
+import SectionHeading from '@/components/blocks/SectionHeading.astro';
+import ReviewCard from '@/components/blocks/ReviewCard.astro';
+import GoogleRatingBadge from '@/components/ui/GoogleRatingBadge.astro';
+import Button from '@/components/ui/Button.astro';
+import { reviews } from '@/data/site';
+
+// Masonry columns for desktop: review i goes to column i % 3
+const columns = [0, 1, 2].map((c) => reviews.filter((_, i) => i % 3 === c));
+---
+
+<section class="section bg-white" id="reviews">
+  <div class="container-site flex flex-col items-center gap-10">
+    <SectionHeading eyebrow="Patient Stories">
+      <em>200+</em> five-star reviews <br class="sm:hidden" />and counting.
+    </SectionHeading>
+
+    <GoogleRatingBadge />
+
+    <div data-reviews class="group/reviews relative w-full max-w-[960px]">
+      <div
+        data-reviews-clip
+        class="max-h-[1180px] overflow-hidden transition-[max-height] duration-500 md:max-h-[640px] lg:max-h-[560px] group-data-[expanded]/reviews:max-h-[4000px]"
+      >
+        <!-- base / md: simple grid -->
+        <div class="grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:hidden">
+          {reviews.map((r) => <ReviewCard {...r} />)}
+        </div>
+        <!-- lg: 3-column masonry -->
+        <div class="hidden items-start gap-6 lg:flex">
+          {
+            columns.map((col) => (
+              <div class="flex flex-1 flex-col gap-6">
+                {col.map((r) => <ReviewCard {...r} />)}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <div
+        class="pointer-events-none absolute inset-x-0 bottom-0 h-[235px] bg-linear-to-b from-white/0 to-white transition-opacity group-data-[expanded]/reviews:opacity-0"
+        aria-hidden="true"
+      >
+      </div>
+    </div>
+
+    <Button variant="outline" data-reviews-more aria-expanded="false" class="w-[160px] tracking-normal">See More</Button>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-reviews-more]').forEach((btn) => {
+    const wrap = btn.closest('section')?.querySelector<HTMLElement>('[data-reviews]');
+    btn.addEventListener('click', () => {
+      if (!wrap) return;
+      const expanded = wrap.toggleAttribute('data-expanded');
+      btn.setAttribute('aria-expanded', String(expanded));
+      btn.textContent = expanded ? 'See Less' : 'See More';
+    });
+  });
+</script>

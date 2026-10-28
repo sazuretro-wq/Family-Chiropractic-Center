@@ -1,0 +1,26 @@
+---
+/** <FaqSection> — SectionHeading + 6 × FaqItem (accordion) · max-w 632. */
+import SectionHeading from '@/components/blocks/SectionHeading.astro';
+import FaqItem from '@/components/blocks/FaqItem.astro';
+import { faqs } from '@/data/site';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
+---
+
+<section class="section bg-white" id="faq">
+  <div class="container-site flex flex-col items-center gap-10 md:gap-14">
+    <SectionHeading eyebrow="Common Questions">Answers before you ask.</SectionHeading>
+    <div class="w-full max-w-[632px]">
+      {faqs.map((f, i) => <FaqItem {...f} defaultOpen={i === 0} />)}
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</section>

@@ -1,0 +1,26 @@
+---
+/** <DoctorCard> — photo, gold badge, credentials, name, bio. */
+interface Props {
+  image: string;
+  badge: string;
+  credentials: string;
+  name: string;
+  bio: string;
+  class?: string;
+}
+const { image, badge, credentials, name, bio, class: className } = Astro.props;
+---
+
+<article class:list={['relative flex flex-col rounded-2xl border border-black/10 bg-white', className]}>
+  <div class="relative h-[340px] overflow-hidden rounded-t-2xl bg-border">
+    <img src={image} alt={`Portrait of ${name}`} loading="lazy" decoding="async" class="size-full object-cover" />
+  </div>
+  <div class="flex flex-col gap-2 p-6">
+    <div class="flex flex-col gap-2">
+      <p class="font-body text-[10px] leading-none tracking-[1.98px] text-gold-700 uppercase">{credentials}</p>
+      <h3 class="type-h3 text-ink-900">{name}</h3>
+    </div>
+    <p class="font-body text-sm leading-[1.5] text-gray-600">{bio}</p>
+  </div>
+  <span class="badge-gold absolute -top-[15px] left-[23px]">{badge}</span>
+</article>

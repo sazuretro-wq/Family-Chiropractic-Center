@@ -1,0 +1,76 @@
+---
+/** Thank-you page — shown after the lead form is submitted. Same design language as the homepage. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SiteHeader from '@/components/layout/SiteHeader.astro';
+import SiteFooter from '@/components/layout/SiteFooter.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import Button from '@/components/ui/Button.astro';
+import PhoneButton from '@/components/ui/PhoneButton.astro';
+import StepItem from '@/components/blocks/StepItem.astro';
+import PhotoStrip from '@/components/sections/PhotoStrip.astro';
+import { site } from '@/data/site';
+
+const nextSteps = [
+  { title: 'We’ll reach out', description: 'Our front desk will text or call you shortly to confirm your appointment time.' },
+  { title: 'Come in for your visit', description: 'Plan for 45–60 minutes. We’ll do your INSiGHT scan, exam and consultation.' },
+  { title: 'Get your plan', description: 'Your doctor explains the results and builds a care plan tailored to you.' },
+];
+---
+
+<BaseLayout title={`Thank you | ${site.name}`} description="Your $59 New Patient Special request was received." noindex>
+  <SiteHeader />
+  <main>
+    <section class="relative isolate overflow-hidden bg-[#363332]">
+      <div aria-hidden="true" class="absolute inset-0 -z-10">
+        <img src="/images/hero-bg.png" alt="" class="size-full object-cover" />
+        <div class="absolute inset-0 bg-ink-900/93"></div>
+      </div>
+      <div class="container-site flex flex-col items-center gap-8 pt-[182px] pb-20 text-center md:pt-[180px] md:pb-[100px]">
+        <span class="flex size-[72px] items-center justify-center rounded-full border border-gold-400 bg-ink-900 text-gold-300 ring-1 ring-gold-400/20 ring-offset-8 ring-offset-transparent">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </span>
+        <div class="flex max-w-[640px] flex-col items-center gap-6">
+          <Eyebrow tone="dark">Request received</Eyebrow>
+          <h1 class="type-h1 text-white">Thank you! <span class="text-gold-300">You're all set.</span></h1>
+          <p class="font-body text-[15px] leading-[1.5] text-white/80 md:text-lg">
+            We've received your request for the $59 New Patient Special. A member of our team will text or call you
+            soon to confirm your appointment.
+          </p>
+        </div>
+        <div class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row">
+          <PhoneButton />
+          <Button href="/" variant="primary">Back to Home</Button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-ink-900 border-t border-white/8">
+      <div class="container-site flex flex-col items-center gap-12 md:gap-16">
+        <div class="flex flex-col items-center gap-6 text-center">
+          <Eyebrow tone="dark">What happens next</Eyebrow>
+          <h2 class="type-h2 text-white">Three simple steps.</h2>
+        </div>
+        <ol class="grid w-full grid-cols-1 gap-12 md:grid-cols-3 md:gap-6 lg:gap-20">
+          {nextSteps.map((s, i) => <StepItem number={i + 1} {...s} />)}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section bg-cream-100">
+      <div class="container-site flex flex-col items-center gap-6 text-center">
+        <Eyebrow>Before your visit</Eyebrow>
+        <h2 class="type-h2 text-ink-900">Questions? <em>We're here to help.</em></h2>
+        <p class="type-body-lg max-w-[560px] text-gray-800">
+          Wear comfortable clothes and bring any recent imaging or notes from other providers. Need to reschedule? Just
+          give us a call.
+        </p>
+        <p class="font-heading text-base text-gray-600">{site.address}</p>
+      </div>
+    </section>
+
+    <PhotoStrip variant="team" />
+  </main>
+  <SiteFooter />
+</BaseLayout>
