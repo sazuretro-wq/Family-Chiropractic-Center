@@ -9,7 +9,14 @@ import { heroHighlights, site } from '@/data/site';
 
 <section class="relative isolate overflow-hidden bg-[#363332]">
   <div aria-hidden="true" class="absolute inset-0 -z-10">
-    <img src="/images/hero-bg.png" alt="" fetchpriority="high" class="size-full object-cover" />
+    <img
+      src="/images/hero-bg-1280.webp"
+      srcset="/images/hero-bg-640.webp 640w, /images/hero-bg-1280.webp 1280w, /images/hero-bg-1920.webp 1920w"
+      sizes="100vw"
+      alt=""
+      fetchpriority="high"
+      class="size-full object-cover"
+    />
     <div class="absolute inset-0 bg-ink-900/93"></div>
   </div>
 

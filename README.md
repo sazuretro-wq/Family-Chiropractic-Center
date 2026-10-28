@@ -1,6 +1,6 @@
 # Family Chiropractic Center — website
 
-Astro 5 + Tailwind CSS v4, static output, deployed on **Cloudflare Pages**.
+Astro 5 + Tailwind CSS v4, static output, deployed as a **Cloudflare Worker** (static assets) at https://fcc.creatiqo.com.
 Built from the Figma file *Family Chiropractic Center – Development* (Style Guide, Components, Homepage – Responsive).
 
 ## First run
@@ -8,6 +8,7 @@ Built from the Figma file *Family Chiropractic Center – Development* (Style Gu
 ```bash
 npm install
 npm run assets   # downloads all photos/icons from Figma into /public (run once)
+npm run images   # makes the web-sized WebP copies the site uses (re-run after replacing a photo)
 npm run dev      # http://localhost:4321
 ```
 
@@ -37,21 +38,27 @@ src/
     layout/    SiteHeader, SiteFooter
     sections/  HeroSection, TrustBar, ProblemSection, IncludedSection, DoctorsSection,
                PhotoStrip, ReviewsSection, StepsSection, ServicesSection, FaqSection, CtaSection
-functions/api/lead.ts      Cloudflare Pages Function that receives the form
+worker/index.ts            Worker entry: serves dist/ and routes /api/lead
+worker/lead.ts             receives the lead form
 ```
 
 Breakpoints (Tailwind defaults): base = mobile (390), `md` = 768 tablet, `lg` = 1024+ desktop (1280 / 1440).
 
+## Images
+
+The PNGs in `public/images` are the Figma sources and are not deployed (`public/.assetsignore`).
+`npm run images` writes resized WebP copies next to them (hero at 640/1280/1920 px + `og-image.jpg`),
+and those are what the pages reference.
+
 ## Lead form
 
-`LeadForm` POSTs to `/api/lead` → `functions/api/lead.ts` validates and forwards the lead to
+`LeadForm` POSTs to `/api/lead` → `worker/lead.ts` validates and forwards the lead to
 `LEAD_WEBHOOK_URL` (Zapier / Make / CRM), then the browser goes to `/thank-you`.
-In `npm run dev` the function doesn't exist, so the form just goes to `/thank-you` (for testing).
-To test the real function locally: `npm run cf:dev`.
+In `npm run dev` the Worker doesn't run, so the form just goes to `/thank-you` (for testing).
+To test the real Worker locally: `npm run cf:dev`.
 
-## Deploy (Cloudflare Pages)
+## Deploy (Cloudflare Workers)
 
-Dashboard: connect the repo → Framework preset **Astro**, build command `npm run build`,
-output directory `dist`. Add env var `LEAD_WEBHOOK_URL` (secret) under Settings → Variables.
-
-CLI: `npx wrangler login` then `npm run deploy`.
+`npx wrangler login` then `npm run deploy` (builds and runs `wrangler deploy`).
+`wrangler.toml` attaches the custom domain `fcc.creatiqo.com`.
+Set the webhook once with `npx wrangler secret put LEAD_WEBHOOK_URL`.

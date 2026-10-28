@@ -46,14 +46,14 @@ export const included = [
 
 export const doctors = [
   {
-    image: '/images/doctors/ashley-hartman.png',
+    image: '/images/doctors/ashley-hartman.webp',
     badge: '16 years of experience',
     credentials: 'DC · Pregnancy & Pediatric',
     name: 'Dr. Ashley Hartman',
     bio: "Dr. Ashley specializes in pregnancy and pediatric chiropractic care. She's passionate about helping moms and families live healthier, more active lives. Her gentle approach makes patients of all ages feel comfortable and cared for.",
   },
   {
-    image: '/images/doctors/cley-charlson.png',
+    image: '/images/doctors/cley-charlson.webp',
     badge: 'Sports & performance specialist',
     credentials: 'DC · TPI · FAKTR · Acupuncture',
     name: 'Dr. Cley Charlson',
@@ -62,19 +62,19 @@ export const doctors = [
 ];
 
 export const staffPhotos = [1, 2, 3, 4, 5, 6].map((n) => ({
-  src: `/images/staff/staff-${n}.png`,
+  src: `/images/staff/staff-${n}.webp`,
   alt: 'Family Chiropractic Center team member',
 }));
 
 // Widths match the Figma "team" strip at 1440px.
 export const teamPhotos = [
-  { src: '/images/team/team-1.png', width: 222, alt: 'Patient visit at Family Chiropractic Center' },
-  { src: '/images/team/team-2.png', width: 245, alt: 'Prenatal chiropractic patients' },
-  { src: '/images/team/team-3.png', width: 222, alt: 'Pediatric patient smiling' },
-  { src: '/images/team/team-4.png', width: 370, alt: 'Dr. Cley Charlson and Dr. Ashley Hartman' },
-  { src: '/images/team/team-5.png', width: 232, alt: 'Acupuncture treatment' },
-  { src: '/images/team/team-6.png', width: 231, alt: 'Two young patients' },
-  { src: '/images/team/team-7.png', width: 222, alt: 'Adjustment in progress' },
+  { src: '/images/team/team-1.webp', width: 222, alt: 'Patient visit at Family Chiropractic Center' },
+  { src: '/images/team/team-2.webp', width: 245, alt: 'Prenatal chiropractic patients' },
+  { src: '/images/team/team-3.webp', width: 222, alt: 'Pediatric patient smiling' },
+  { src: '/images/team/team-4.webp', width: 370, alt: 'Dr. Cley Charlson and Dr. Ashley Hartman' },
+  { src: '/images/team/team-5.webp', width: 232, alt: 'Acupuncture treatment' },
+  { src: '/images/team/team-6.webp', width: 231, alt: 'Two young patients' },
+  { src: '/images/team/team-7.webp', width: 222, alt: 'Adjustment in progress' },
 ];
 
 export const reviews = [

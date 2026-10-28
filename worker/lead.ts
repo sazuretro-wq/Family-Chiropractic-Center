@@ -1,12 +1,13 @@
 /**
- * Cloudflare Pages Function — POST /api/lead
+ * POST /api/lead — called from worker/index.ts
  * Receives the $59 New Patient Special form (JSON or form-encoded),
  * validates it and forwards it to LEAD_WEBHOOK_URL (Zapier / Make / CRM) if set.
  *
- * Set the secret:  wrangler pages secret put LEAD_WEBHOOK_URL
+ * Set the secret:  wrangler secret put LEAD_WEBHOOK_URL
  */
 
-interface Env {
+export interface Env {
+  ASSETS: Fetcher;
   LEAD_WEBHOOK_URL?: string;
 }
 
@@ -21,7 +22,7 @@ type Lead = {
 const json = (data: unknown, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json' } });
 
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+export async function handleLead(request: Request, env: Env): Promise<Response> {
   const wantsJson = (request.headers.get('Accept') || '').includes('application/json');
   const type = request.headers.get('Content-Type') || '';
 
@@ -35,7 +36,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   }
 
   // Bots fill the hidden honeypot — pretend success.
-  if (lead.company) return wantsJson ? json({ ok: true }) : Response.redirect(new URL('/thank-you', request.url), 303);
+  if (lead.company) return wantsJson ? json({ ok: true }) : Response.redirect(new URL('/thank-you', request.url).toString(), 303);
 
   const fullName = (lead.fullName || '').trim();
   const phone = (lead.phone || '').replace(/[^\d+]/g, '');
@@ -65,5 +66,5 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     console.log('New lead (no LEAD_WEBHOOK_URL set):', payload);
   }
 
-  return wantsJson ? json({ ok: true }) : Response.redirect(new URL('/thank-you', request.url), 303);
-};
+  return wantsJson ? json({ ok: true }) : Response.redirect(new URL('/thank-you', request.url).toString(), 303);
+}

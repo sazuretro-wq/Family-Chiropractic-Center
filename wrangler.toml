@@ -1,8 +1,19 @@
-# Cloudflare Pages config (used by `npm run cf:dev` and `npm run deploy`)
+# Cloudflare Workers config (used by `npm run cf:dev` and `npm run deploy`)
 name = "family-chiropractic-center"
-pages_build_output_dir = "./dist"
+main = "worker/index.ts"
 compatibility_date = "2026-10-01"
 
+# Static Astro build. Requests for /api/* run the Worker first; everything else is served from dist/.
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "404-page"
+run_worker_first = ["/api/*"]
+
+[[routes]]
+pattern = "fcc.creatiqo.com"
+custom_domain = true
+
 # Optional: forward leads to a webhook (Zapier / Make / CRM).
-# Set it as a secret in the Pages dashboard instead of committing it:
-#   wrangler pages secret put LEAD_WEBHOOK_URL
+# Set it as a secret instead of committing it:
+#   wrangler secret put LEAD_WEBHOOK_URL

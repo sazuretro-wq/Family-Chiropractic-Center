@@ -1,0 +1,2 @@
+# Source PNGs from Figma — the site uses the WebP copies (npm run images).
+images/**/*.png

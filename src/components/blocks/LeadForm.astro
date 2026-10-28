@@ -1,7 +1,7 @@
 ---
 /**
  * <LeadForm> — $59 New Patient Special booking form.
- * POSTs JSON to /api/lead (Cloudflare Pages Function) then redirects to /thank-you.
+ * POSTs JSON to /api/lead (Cloudflare Worker, worker/lead.ts) then redirects to /thank-you.
  * Works without JS too: native POST → function answers with a 303 redirect.
  */
 import Button from '@/components/ui/Button.astro';
